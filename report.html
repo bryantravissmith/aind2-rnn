@@ -11878,7 +11878,7 @@ div#notebook {
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.text.Text at 0x7fc0058e9cf8&gt;</pre>
+<pre>&lt;matplotlib.text.Text at 0x7fbc1da78400&gt;</pre>
 </div>
 
 </div>
@@ -12328,7 +12328,7 @@ $$\begin{array}{c|c}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run a window of size 2 over the odd number sequence and display the results</span>
@@ -12398,13 +12398,14 @@ the type of y is &lt;class &#39;numpy.ndarray&#39;&gt;
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TODO: fill out the function below that transforms the input series and window-size into a set of input/output pairs for use with our RNN model</span>
 <span class="k">def</span> <span class="nf">window_transform_series</span><span class="p">(</span><span class="n">series</span><span class="p">,</span><span class="n">window_size</span><span class="p">):</span>
-    <span class="c1"># containers for input/output pairs</span>
+    <span class="c1"># List comprehension to create 2d array - window size wide and len(series) - window_size tall</span>
     <span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="n">series</span><span class="p">[</span><span class="n">i</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="n">window_size</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">series</span><span class="p">)</span><span class="o">-</span><span class="n">window_size</span><span class="p">)]</span>
+    <span class="c1"># Getting the variables -&gt;  no need for loop or list comprehension</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="n">window_size</span><span class="p">:]</span>
     
         
@@ -12434,7 +12435,7 @@ the type of y is &lt;class &#39;numpy.ndarray&#39;&gt;
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># window the data using your windowing function</span>
@@ -12461,7 +12462,7 @@ the type of y is &lt;class &#39;numpy.ndarray&#39;&gt;
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split our dataset into training / testing sets</span>
@@ -12505,7 +12506,7 @@ the type of y is &lt;class &#39;numpy.ndarray&#39;&gt;
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TODO: create required RNN model</span>
@@ -12520,8 +12521,11 @@ the type of y is &lt;class &#39;numpy.ndarray&#39;&gt;
 
 
 <span class="c1"># TODO: build an RNN to perform regression on our time series input/output data</span>
+<span class="c1"># Make a sequentianl model</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+<span class="c1"># Add a LSTM with 5 hidden nodes as outlined above</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">window_size</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+<span class="c1"># Make a fully connected prediction layer of 1 output</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 
 <span class="c1"># build model using keras documentation recommended optimizer initialization</span>
@@ -12532,22 +12536,6 @@ the type of y is &lt;class &#39;numpy.ndarray&#39;&gt;
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>Using TensorFlow backend.
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -12564,7 +12552,7 @@ the type of y is &lt;class &#39;numpy.ndarray&#39;&gt;
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run your model!</span>
@@ -12580,12 +12568,12 @@ the type of y is &lt;class &#39;numpy.ndarray&#39;&gt;
 
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[9]:</div>
+<div class="prompt output_prompt">Out[21]:</div>
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;keras.callbacks.History at 0x7fbfd2825eb8&gt;</pre>
+<pre>&lt;keras.callbacks.History at 0x7fbbb424e5f8&gt;</pre>
 </div>
 
 </div>
@@ -12606,7 +12594,7 @@ the type of y is &lt;class &#39;numpy.ndarray&#39;&gt;
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># generate predictions for training</span>
@@ -12636,7 +12624,7 @@ the type of y is &lt;class &#39;numpy.ndarray&#39;&gt;
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print out training and testing errors</span>
@@ -12659,8 +12647,8 @@ the type of y is &lt;class &#39;numpy.ndarray&#39;&gt;
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>training error = 0.0160045779564
-testing error = 0.0139842459412
+<pre>training error = 0.0160044296221
+testing error = 0.0139837334756
 </pre>
 </div>
 </div>
@@ -12681,7 +12669,7 @@ testing error = 0.0139842459412
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Plot everything - the original series as well as predictions on training and testing sets</span>
@@ -12720,516 +12708,516 @@ testing error = 0.0139842459412
 
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAEKCAYAAABkC+0BAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
-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
-mjUr8KOPPvIE8Pf3H/yXv/zFLzIyclB4eHjk/v37HQC2bdvmNHTo0IGDBg2KHDZs2MDExMQOu8jj
-4+MdBg+4+OZLAAAgAElEQVQePGjgwIGR4eHhkQcPHrQHePfdd3sZts+bNy+gsVFbFt3JyWnYggUL
-+kVERET+9NNPLiNHjozYuXOnE8C6devchg4dOjAyMnLQ9OnTg8vKyqwA7rvvPv+QkJCo8PDwyIUL
-F17QWjkdrQNQLKX8Cm0A3ietXxdyEaVrKykpwdW1FydOnL8QUHv8/PyorKzktttGADpuuKGWDz6A
-vDwtAZg+fTqurjFABj4+WpN/RIRp4u9s2loAIIQ2ACA1Vevm8Pf3x3Av8PQspby8HE9P7f3p05aI
-VDGl5N27kR99BHPm8LFOx2gbG1bfcQc/JSeTnp6uPfV7eUFioqVDpaKigoaGhjNjAPr2tXRIJvfz
-zz87ffnll70TEhLS4uPj0z799NM+u3btcgQ4cuSI/QMPPFCUlZWVEh4eXm84Z8eOHU7r16/3TE1N
-TdmyZUtmUlKSc3uf7+Xl1Ziampo2f/78ohdffNEbICYmpnbv3r3paWlpqUuWLDn+2GOPdXjDfeut
-t/rcd999J9LT01OTkpLSgoKC6vft2+ewdu3aXvHx8enp6empVlZW8v333+8NUFNTYzVq1KiqjIyM
-1KuvvrrS8DkFBQU2zz//vO/OnTsPpaampg0fPrx6+fLl3oWFhdYbN270zMzMTDl06FDq888/X3Ah
-/4bGTAMsEUJ8gzbSHuBn4CH92gBKN1BSUoK19dOcOgXXXPP7PuOqq65i48aNXHbZZbzyyvXY2Kxk
-0SJnbr5Zm1Lg5+eHo2MAvXvvY/fucNatg8mTTfhDdCJXV1d69+5NRcV+rK21qYDHjx9n3LhxzQmA
-l1cZpaUVzd2upaXd9iGs22tsbOQf//gHtS+9xL8AHnyQH+6+G+8rrmDyCy9g9dln/Oc//+GZZ56B
-mJgukQAYBvY2JwBmXl5z/vz5/ZOTk003xxCIjo6uXrVq1dH29m/fvt3lmmuuOe3m5qYDuPbaa09t
-27bN9ZZbbjnt6+tbP2XKlKrW5+zYscNl+vTpp52cnKSTk5O88sor203N582bdwpg5MiR1d99950n
-QGlpqfWcOXOCcnNzHYQQsqGhocMBTKNHj6565ZVXfI8dO2Y3d+7cU4MHD67btGmTa3JyslNMTMwg
-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
-MMYYY9qg/w99VDOQt8I/oAAAAABJRU5ErkJggg==
+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
+9j61AAAAAElFTkSuQmCC
 "
 >
 </div>
@@ -13295,7 +13283,7 @@ MMYYY9qg/w99VDOQt8I/oAAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># read in the text, transforming everything to lower case</span>
@@ -13336,7 +13324,7 @@ MMYYY9qg/w99VDOQt8I/oAAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### print out the first 1000 characters of the raw text to get a sense of what we need to throw out</span>
@@ -13352,7 +13340,7 @@ MMYYY9qg/w99VDOQt8I/oAAAAABJRU5ErkJggg==
 
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[33]:</div>
+<div class="prompt output_prompt">Out[26]:</div>
 
 
 
@@ -13379,7 +13367,7 @@ MMYYY9qg/w99VDOQt8I/oAAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### find and replace &#39;\n&#39; and &#39;\r&#39; symbols - replacing them </span>
@@ -13405,7 +13393,7 @@ MMYYY9qg/w99VDOQt8I/oAAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### print out the first 1000 characters of the raw text to get a sense of what we need to throw out</span>
@@ -13421,7 +13409,7 @@ MMYYY9qg/w99VDOQt8I/oAAAAABJRU5ErkJggg==
 
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[35]:</div>
+<div class="prompt output_prompt">Out[28]:</div>
 
 
 
@@ -13449,23 +13437,56 @@ MMYYY9qg/w99VDOQt8I/oAAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">string</span>
+<span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[30]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;abcdefghijklmnopqrstuvwxyz&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TODO: list all unique characters in the text and remove any non-english ones</span>
-<span class="c1"># find all unique characters in the text</span>
+<span class="c1"># find all unique characters in the text using counter</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
 <span class="n">cnt</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 
 <span class="c1"># remove as many non-english characters and character sequences as you can </span>
+
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;[A-Za-z0-9 .,!?;:&quot;&#39;]&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="c1"># keep lowercase characters plus space, eclamation mark, comma, period, colon, semicolon, question mark</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;[a-z !,.:;?]&quot;&quot;&quot;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cnt</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
     <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="c1"># if not a regex match of approved characters - replace with space</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-
-
     
 <span class="c1"># shorten any extra dead space created above</span>
 <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
@@ -13488,7 +13509,7 @@ MMYYY9qg/w99VDOQt8I/oAAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### print out the first 2000 characters of the raw text to get a sense of what we need to throw out</span>
@@ -13504,12 +13525,12 @@ MMYYY9qg/w99VDOQt8I/oAAAAABJRU5ErkJggg==
 
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[37]:</div>
+<div class="prompt output_prompt">Out[35]:</div>
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#34;is eyes she eclipses and predominates the whole of her sex. it was not that he felt any emotion akin to love for irene adler. all emotions, and that one particularly, were abhorrent to his cold, precise but admirably balanced mind. he was, i take it, the most perfect reasoning and observing machine that the world has seen, but as a lover he would have placed himself in a false position. he never spoke of the softer passions, save with a gibe and a sneer. they were admirable things for the observer excellent for drawing the veil from men&#39;s motives and actions. but for the trained reasoner to admit such intrusions into his own delicate and finely adjusted temperament was to introduce a distracting factor which might throw a doubt upon all his mental results. grit in a sensitive instrument, or a crack in one of his own high power lenses, would not be more disturbing than a strong emotion in a nature such as his. and yet there was but one woman to him, and that woman was the late irene adler, of dubious and questionable memory. i had seen little of holmes lately. my marriage had drifted us away from each other. my own complete happiness, and the home centred interests which rise up around the man who first finds himself master of his own establishment, were sufficient to absorb all my attention, while holmes, who loathed every form of society with his whole bohemian soul, remained in our lodgings in baker street, buried among his old books, and alternating from week to week between cocaine and ambition, the drowsiness of the drug, and the fierce energy of his own keen nature. he was still, as ever, deeply attracted by the study of crime, and occupied his immense faculties and extraordinary powers of observation in following out those clues, and clearing up those mysteries which had been abandoned as hopeless by the official police. from time to time i heard some vague account of his doings: of his summons to odessa in the case of the trepoff murder, of his clearing up o&#34;</pre>
+<pre>&#39;is eyes she eclipses and predominates the whole of her sex. it was not that he felt any emotion akin to love for irene adler. all emotions, and that one particularly, were abhorrent to his cold, precise but admirably balanced mind. he was, i take it, the most perfect reasoning and observing machine that the world has seen, but as a lover he would have placed himself in a false position. he never spoke of the softer passions, save with a gibe and a sneer. they were admirable things for the observer excellent for drawing the veil from men s motives and actions. but for the trained reasoner to admit such intrusions into his own delicate and finely adjusted temperament was to introduce a distracting factor which might throw a doubt upon all his mental results. grit in a sensitive instrument, or a crack in one of his own high power lenses, would not be more disturbing than a strong emotion in a nature such as his. and yet there was but one woman to him, and that woman was the late irene adler, of dubious and questionable memory. i had seen little of holmes lately. my marriage had drifted us away from each other. my own complete happiness, and the home centred interests which rise up around the man who first finds himself master of his own establishment, were sufficient to absorb all my attention, while holmes, who loathed every form of society with his whole bohemian soul, remained in our lodgings in baker street, buried among his old books, and alternating from week to week between cocaine and ambition, the drowsiness of the drug, and the fierce energy of his own keen nature. he was still, as ever, deeply attracted by the study of crime, and occupied his immense faculties and extraordinary powers of observation in following out those clues, and clearing up those mysteries which had been abandoned as hopeless by the official police. from time to time i heard some vague account of his doings: of his summons to odessa in the case of the trepoff murder, of his clearing up o&#39;</pre>
 </div>
 
 </div>
@@ -13530,7 +13551,7 @@ MMYYY9qg/w99VDOQt8I/oAAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># count the number of unique characters in the text</span>
@@ -13553,8 +13574,8 @@ MMYYY9qg/w99VDOQt8I/oAAAAABJRU5ErkJggg==
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>this corpus has 577405 total number of characters
-this corpus has 45 unique characters
+<pre>this corpus has 570918 total number of characters
+this corpus has 33 unique characters
 </pre>
 </div>
 </div>
@@ -13600,14 +13621,15 @@ $$\begin{array}{c|c}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TODO: fill out the function below that transforms the input text and window-size into a set of input/output pairs for use with our RNN model</span>
 <span class="c1">### TODO: fill out the function below that transforms the input text and window-size into a set of input/output pairs for use with our RNN model</span>
 <span class="k">def</span> <span class="nf">window_transform_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="n">window_size</span><span class="p">,</span><span class="n">step_size</span><span class="p">):</span>
-    <span class="c1"># containers for input/output pairs</span>
+    <span class="c1"># Iterate creating a window table of size windowsize, but iterate through the data by step_size</span>
     <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="n">window_size</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">-</span> <span class="n">window_size</span><span class="p">,</span> <span class="n">step_size</span><span class="p">)]</span>
+    <span class="c1"># get the next text value at the end of each step</span>
     <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">window_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="n">step_size</span><span class="p">)]</span>
     
     <span class="k">return</span> <span class="n">inputs</span><span class="p">,</span><span class="n">outputs</span>
@@ -13630,7 +13652,7 @@ $$\begin{array}{c|c}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run your text window-ing function </span>
@@ -13656,7 +13678,7 @@ $$\begin{array}{c|c}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print out a few of the input/output pairs to verify that we&#39;ve made the right kind of stuff to learn from</span>
@@ -13682,7 +13704,7 @@ $$\begin{array}{c|c}
 <pre>input = e eclipses and predominates the whole of her sex. it was not that he felt any emotion akin to love f
 output = o
 --------------
-input = er excellent for drawing the veil from men&#39;s motives and actions. but for the trained reasoner to ad
+input = er excellent for drawing the veil from men s motives and actions. but for the trained reasoner to ad
 output = m
 </pre>
 </div>
@@ -13715,7 +13737,7 @@ output = m
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print out the number of unique characters in the dataset</span>
@@ -13737,9 +13759,9 @@ output = m
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>this corpus has 45 unique characters
+<pre>this corpus has 33 unique characters
 and these characters are 
-[&#39; &#39;, &#39;!&#39;, &#39;&#34;&#39;, &#34;&#39;&#34;, &#39;,&#39;, &#39;.&#39;, &#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;, &#39;5&#39;, &#39;6&#39;, &#39;7&#39;, &#39;8&#39;, &#39;9&#39;, &#39;:&#39;, &#39;;&#39;, &#39;?&#39;, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;, &#39;i&#39;, &#39;j&#39;, &#39;k&#39;, &#39;l&#39;, &#39;m&#39;, &#39;n&#39;, &#39;o&#39;, &#39;p&#39;, &#39;q&#39;, &#39;r&#39;, &#39;s&#39;, &#39;t&#39;, &#39;u&#39;, &#39;v&#39;, &#39;w&#39;, &#39;x&#39;, &#39;y&#39;, &#39;z&#39;]
+[&#39; &#39;, &#39;!&#39;, &#39;,&#39;, &#39;.&#39;, &#39;:&#39;, &#39;;&#39;, &#39;?&#39;, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;, &#39;i&#39;, &#39;j&#39;, &#39;k&#39;, &#39;l&#39;, &#39;m&#39;, &#39;n&#39;, &#39;o&#39;, &#39;p&#39;, &#39;q&#39;, &#39;r&#39;, &#39;s&#39;, &#39;t&#39;, &#39;u&#39;, &#39;v&#39;, &#39;w&#39;, &#39;x&#39;, &#39;y&#39;, &#39;z&#39;]
 </pre>
 </div>
 </div>
@@ -13803,7 +13825,7 @@ $$a\longleftarrow\left[\begin{array}{c}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this dictionary is a function mapping each unique character to a unique integer</span>
@@ -13830,7 +13852,7 @@ $$a\longleftarrow\left[\begin{array}{c}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># transform character-based input/output into equivalent numerical versions</span>
@@ -13872,7 +13894,7 @@ $$a\longleftarrow\left[\begin{array}{c}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># use your function</span>
@@ -13907,7 +13929,7 @@ $$a\longleftarrow\left[\begin{array}{c}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### necessary functions from the keras library</span>
@@ -13919,9 +13941,13 @@ $$a\longleftarrow\left[\begin{array}{c}
 <span class="kn">import</span> <span class="nn">random</span>
 
 <span class="c1"># TODO build the required RNN model: a single LSTM hidden layer with softmax activation, categorical_crossentropy loss </span>
+<span class="c1"># Create a sequential model </span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+<span class="c1"># Add LSTM with 200 hidden nodes as stated above</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">window_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">chars</span><span class="p">))))</span>
+<span class="c1"># Predict the character</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chars</span><span class="p">)))</span>
+<span class="c1"># Provide an activation using softmax</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;softmax&#39;</span><span class="p">))</span>
 
 <span class="c1"># initialize optimizer</span>
@@ -13948,7 +13974,7 @@ $$a\longleftarrow\left[\begin{array}{c}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># a small subset of our input/output pairs</span>
@@ -13973,7 +13999,7 @@ $$a\longleftarrow\left[\begin{array}{c}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># train the model</span>
@@ -13996,85 +14022,85 @@ $$a\longleftarrow\left[\begin{array}{c}
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Epoch 1/40
-10000/10000 [==============================] - 4s - loss: 3.1336     
+10000/10000 [==============================] - 4s - loss: 3.0471     
 Epoch 2/40
-10000/10000 [==============================] - 4s - loss: 2.9494     
+10000/10000 [==============================] - 4s - loss: 2.9065     
 Epoch 3/40
-10000/10000 [==============================] - 4s - loss: 2.9253     
+10000/10000 [==============================] - 4s - loss: 2.8814     
 Epoch 4/40
-10000/10000 [==============================] - 4s - loss: 2.9000     
+10000/10000 [==============================] - 4s - loss: 2.8474     
 Epoch 5/40
-10000/10000 [==============================] - 4s - loss: 2.8528     
+10000/10000 [==============================] - 4s - loss: 2.7873     
 Epoch 6/40
-10000/10000 [==============================] - 4s - loss: 2.7955     
+10000/10000 [==============================] - 4s - loss: 2.7117     
 Epoch 7/40
-10000/10000 [==============================] - 4s - loss: 2.7287     
+10000/10000 [==============================] - 4s - loss: 2.6339     
 Epoch 8/40
-10000/10000 [==============================] - 4s - loss: 2.6690     
+10000/10000 [==============================] - 4s - loss: 2.5653     
 Epoch 9/40
-10000/10000 [==============================] - 4s - loss: 2.6123     
+10000/10000 [==============================] - 4s - loss: 2.5033     
 Epoch 10/40
-10000/10000 [==============================] - 4s - loss: 2.5587     
+10000/10000 [==============================] - 4s - loss: 2.4514     
 Epoch 11/40
-10000/10000 [==============================] - 4s - loss: 2.5154     
+10000/10000 [==============================] - 4s - loss: 2.4115     
 Epoch 12/40
-10000/10000 [==============================] - 4s - loss: 2.4693     
+10000/10000 [==============================] - 4s - loss: 2.3661     
 Epoch 13/40
-10000/10000 [==============================] - 4s - loss: 2.4336     
+10000/10000 [==============================] - 4s - loss: 2.3334     
 Epoch 14/40
-10000/10000 [==============================] - 4s - loss: 2.4062     
+10000/10000 [==============================] - 4s - loss: 2.3046     
 Epoch 15/40
-10000/10000 [==============================] - 4s - loss: 2.3789     
+10000/10000 [==============================] - 4s - loss: 2.2764     
 Epoch 16/40
-10000/10000 [==============================] - 4s - loss: 2.3475     
+10000/10000 [==============================] - 4s - loss: 2.2537     
 Epoch 17/40
-10000/10000 [==============================] - 4s - loss: 2.3259     
+10000/10000 [==============================] - 4s - loss: 2.2272     
 Epoch 18/40
-10000/10000 [==============================] - 4s - loss: 2.3064     
+10000/10000 [==============================] - 4s - loss: 2.2093     
 Epoch 19/40
-10000/10000 [==============================] - 4s - loss: 2.2865     
+10000/10000 [==============================] - 4s - loss: 2.1858     
 Epoch 20/40
-10000/10000 [==============================] - 4s - loss: 2.2656     
+10000/10000 [==============================] - 4s - loss: 2.1628     
 Epoch 21/40
-10000/10000 [==============================] - 4s - loss: 2.2418     
+10000/10000 [==============================] - 4s - loss: 2.1474     
 Epoch 22/40
-10000/10000 [==============================] - 4s - loss: 2.2216     
+10000/10000 [==============================] - 4s - loss: 2.1241     
 Epoch 23/40
-10000/10000 [==============================] - 4s - loss: 2.2070     
+10000/10000 [==============================] - 4s - loss: 2.1094     
 Epoch 24/40
-10000/10000 [==============================] - 4s - loss: 2.1877     
+10000/10000 [==============================] - 4s - loss: 2.0896     
 Epoch 25/40
-10000/10000 [==============================] - 4s - loss: 2.1734     
+10000/10000 [==============================] - 4s - loss: 2.0696     
 Epoch 26/40
-10000/10000 [==============================] - 4s - loss: 2.1518     
+10000/10000 [==============================] - 4s - loss: 2.0521     
 Epoch 27/40
-10000/10000 [==============================] - 4s - loss: 2.1374     
+10000/10000 [==============================] - 4s - loss: 2.0344     
 Epoch 28/40
-10000/10000 [==============================] - 4s - loss: 2.1232     
+10000/10000 [==============================] - 4s - loss: 2.0172     
 Epoch 29/40
-10000/10000 [==============================] - 4s - loss: 2.1034     
+10000/10000 [==============================] - 4s - loss: 1.9924     
 Epoch 30/40
-10000/10000 [==============================] - 4s - loss: 2.0933     
+10000/10000 [==============================] - 4s - loss: 1.9770     
 Epoch 31/40
-10000/10000 [==============================] - 4s - loss: 2.0704     
+10000/10000 [==============================] - 4s - loss: 1.9579     
 Epoch 32/40
-10000/10000 [==============================] - 4s - loss: 2.0568     
+10000/10000 [==============================] - 4s - loss: 1.9383     
 Epoch 33/40
-10000/10000 [==============================] - 4s - loss: 2.0420     
+10000/10000 [==============================] - 4s - loss: 1.9169     
 Epoch 34/40
-10000/10000 [==============================] - 4s - loss: 2.0241     
+10000/10000 [==============================] - 4s - loss: 1.8992     
 Epoch 35/40
-10000/10000 [==============================] - 4s - loss: 2.0029     
+10000/10000 [==============================] - 4s - loss: 1.8759     
 Epoch 36/40
-10000/10000 [==============================] - 4s - loss: 1.9886     
+10000/10000 [==============================] - 4s - loss: 1.8523     
 Epoch 37/40
-10000/10000 [==============================] - 4s - loss: 1.9754     
+10000/10000 [==============================] - 4s - loss: 1.8312     
 Epoch 38/40
-10000/10000 [==============================] - 4s - loss: 1.9551     
+10000/10000 [==============================] - 4s - loss: 1.8075     
 Epoch 39/40
-10000/10000 [==============================] - 4s - loss: 1.9343     
+10000/10000 [==============================] - 4s - loss: 1.7865     
 Epoch 40/40
-10000/10000 [==============================] - 4s - loss: 1.9142     
+10000/10000 [==============================] - 4s - loss: 1.7592     
 </pre>
 </div>
 </div>
@@ -14097,7 +14123,7 @@ Epoch 40/40
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># function that uses trained model to predict a desired number of future characters</span>
@@ -14142,7 +14168,7 @@ Epoch 40/40
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: choose an input sequence and use the prediction function in the previous Python cell to predict 100 characters following it</span>
@@ -14185,70 +14211,70 @@ input chars =
 is eyes she eclipses and predominates the whole of her sex. it was not that he felt any emotion akin&#34;
 
 predicted chars = 
- the the wing the the the coured and the the sored and the the soure the coure to the the ther coust&#34;
+gere. it the coung the has has in the and the cours of the couther as the cound of the sithe she cor&#34;
 
 ------------------
 input chars = 
  to love for irene adler. all emotions, and that one particularly, were abhorrent to his cold, preci&#34;
 
 predicted chars = 
-th the the sored and the the soure the coure to the the ther coust and and and and and and and and a&#34;
+se to the couther so cook int of the cour hom she coure the cast of the couther as in the canter for&#34;
 
 ------------------
 input chars = 
 se but admirably balanced mind. he was, i take it, the most perfect reasoning and observing machine &#34;
 
 predicted chars = 
-the hare houred and the the sored and the his wind the the the coured and the the sored and the the &#34;
+har was in the canter and the coure of the couther as the coull the sing of the couther as it and an&#34;
 
 ------------------
 input chars = 
 that the world has seen, but as a lover he would have placed himself in a false position. he never s&#34;
 
 predicted chars = 
-ound and and and and and and and and and and and and and and and and and and and and and and and and&#34;
+hat in the cand the his home hit she cound re she coure and and whin ho mand the har the sist of the&#34;
 
 ------------------
 input chars = 
 poke of the softer passions, save with a gibe and a sneer. they were admirable things for the observ&#34;
 
 predicted chars = 
-erich the shere whith what wish bureand and the poren the coured and anderof hind and and and and an&#34;
+esting the sind of the couthing and in the coung of the couther as at in the canter and the coure of&#34;
 
 ------------------
 input chars = 
-er excellent for drawing the veil from men&#39;s motives and actions. but for the trained reasoner to ad&#34;
+er excellent for drawing the veil from men s motives and actions. but for the trained reasoner to ad&#34;
 
 predicted chars = 
- to the the the the the the the the the the the the the the the the the the the the the the the the &#34;
+ hour in the wist in the cant of the couther as the coull the sing of the couther as it and and in t&#34;
 
 ------------------
 input chars = 
 mit such intrusions into his own delicate and finely adjusted temperament was to introduce a distrac&#34;
 
 predicted chars = 
-t the ther whacl in the pante the the sored and the the sored and the the soure the coure to the the&#34;
+ind ard in the has har have beat in the the core the coust of the couther as the coull the sing of t&#34;
 
 ------------------
 input chars = 
 ting factor which might throw a doubt upon all his mental results. grit in a sensitive instrument, o&#34;
 
 predicted chars = 
-n the sound and and and and and and and and and and and and and and and and and and and and and and &#34;
+f the couther and the pander and the singe the come the cast of the couther as the coull the sing of&#34;
 
 ------------------
 input chars = 
 r a crack in one of his own high power lenses, would not be more disturbing than a strong emotion in&#34;
 
 predicted chars = 
- the tound and and and and and and and and and and and and and and and and and and and and and and a&#34;
+ the count of the couther as the coull the sing of the couther as it and and in the count of the cou&#34;
 
 ------------------
 input chars = 
  a nature such as his. and yet there was but one woman to him, and that woman was the late irene adl&#34;
 
 predicted chars = 
-y the there sher comen, and and the poren ther coustere the his the the the the coured and the the s&#34;
+ere thor inge the the cour hom she coure the has the caster and he coust of the couther as at in the&#34;
 
 </pre>
 </div>
@@ -14272,7 +14298,7 @@ y the there sher comen, and and the poren ther coustere the his the the the the 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### A simple way to write output to file</span>
@@ -14296,7 +14322,7 @@ y the there sher comen, and and the poren ther coustere the his the the the the 
 
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[52]:</div>
+<div class="prompt output_prompt">Out[50]:</div>
 
 
 
@@ -14333,7 +14359,7 @@ y the there sher comen, and and the poren ther coustere the his the the the the 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># a small subset of our input/output pairs</span>
@@ -14358,6 +14384,15 @@ y the there sher comen, and and the poren ther coustere the his the the the the 
 <div class="output_area">
 <div class="prompt"></div>
 
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Epoch 1/30
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>/home/aind2/anaconda3/envs/aind2/lib/python3.6/site-packages/keras/models.py:837: UserWarning: The `nb_epoch` argument in `fit` has been renamed `epochs`.
   warnings.warn(&#39;The `nb_epoch` argument in `fit` &#39;
@@ -14369,66 +14404,65 @@ y the there sher comen, and and the poren ther coustere the his the the the the 
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Epoch 1/30
-100000/100000 [==============================] - 43s - loss: 2.0534    
+<pre>100000/100000 [==============================] - 43s - loss: 2.0172    
 Epoch 2/30
-100000/100000 [==============================] - 43s - loss: 1.9661    
+100000/100000 [==============================] - 43s - loss: 1.9268    
 Epoch 3/30
-100000/100000 [==============================] - 43s - loss: 1.9009    
+100000/100000 [==============================] - 43s - loss: 1.8639    
 Epoch 4/30
-100000/100000 [==============================] - 43s - loss: 1.8469    
+100000/100000 [==============================] - 43s - loss: 1.8096    
 Epoch 5/30
-100000/100000 [==============================] - 43s - loss: 1.7973    
+100000/100000 [==============================] - 43s - loss: 1.7615    
 Epoch 6/30
-100000/100000 [==============================] - 43s - loss: 1.7535    
+100000/100000 [==============================] - 43s - loss: 1.7178    
 Epoch 7/30
-100000/100000 [==============================] - 43s - loss: 1.7146    
+100000/100000 [==============================] - 43s - loss: 1.6785    
 Epoch 8/30
-100000/100000 [==============================] - 43s - loss: 1.6779    
+100000/100000 [==============================] - 43s - loss: 1.6404    
 Epoch 9/30
-100000/100000 [==============================] - 43s - loss: 1.6437    
+100000/100000 [==============================] - 43s - loss: 1.6046    
 Epoch 10/30
-100000/100000 [==============================] - 43s - loss: 1.6109    
+100000/100000 [==============================] - 43s - loss: 1.5723    
 Epoch 11/30
-100000/100000 [==============================] - 43s - loss: 1.5794    
+100000/100000 [==============================] - 43s - loss: 1.5392    
 Epoch 12/30
-100000/100000 [==============================] - 43s - loss: 1.5500    
+100000/100000 [==============================] - 43s - loss: 1.5078    
 Epoch 13/30
-100000/100000 [==============================] - 43s - loss: 1.5196    
+100000/100000 [==============================] - 43s - loss: 1.4775    
 Epoch 14/30
-100000/100000 [==============================] - 43s - loss: 1.4912    
+100000/100000 [==============================] - 43s - loss: 1.4484    
 Epoch 15/30
-100000/100000 [==============================] - 43s - loss: 1.4627    
+100000/100000 [==============================] - 43s - loss: 1.4193    
 Epoch 16/30
-100000/100000 [==============================] - 43s - loss: 1.4339    
+100000/100000 [==============================] - 43s - loss: 1.3906    
 Epoch 17/30
-100000/100000 [==============================] - 43s - loss: 1.4074    
+100000/100000 [==============================] - 43s - loss: 1.3610    
 Epoch 18/30
-100000/100000 [==============================] - 43s - loss: 1.3798    
+100000/100000 [==============================] - 43s - loss: 1.3328    
 Epoch 19/30
-100000/100000 [==============================] - 43s - loss: 1.3541    
+100000/100000 [==============================] - 43s - loss: 1.3045    
 Epoch 20/30
-100000/100000 [==============================] - 43s - loss: 1.3270    
+100000/100000 [==============================] - 43s - loss: 1.2760    
 Epoch 21/30
-100000/100000 [==============================] - 43s - loss: 1.3000    
+100000/100000 [==============================] - 43s - loss: 1.2482    
 Epoch 22/30
-100000/100000 [==============================] - 43s - loss: 1.2725    
+100000/100000 [==============================] - 43s - loss: 1.2201    
 Epoch 23/30
-100000/100000 [==============================] - 43s - loss: 1.2464    
+100000/100000 [==============================] - 43s - loss: 1.1909    
 Epoch 24/30
-100000/100000 [==============================] - 43s - loss: 1.2204    
+100000/100000 [==============================] - 43s - loss: 1.1645    
 Epoch 25/30
-100000/100000 [==============================] - 43s - loss: 1.1940    
+100000/100000 [==============================] - 43s - loss: 1.1371    
 Epoch 26/30
-100000/100000 [==============================] - 43s - loss: 1.1684    
+100000/100000 [==============================] - 43s - loss: 1.1092    
 Epoch 27/30
-100000/100000 [==============================] - 43s - loss: 1.1442    
+100000/100000 [==============================] - 43s - loss: 1.0840    
 Epoch 28/30
-100000/100000 [==============================] - 43s - loss: 1.1169    
+100000/100000 [==============================] - 43s - loss: 1.0572    
 Epoch 29/30
-100000/100000 [==============================] - 43s - loss: 1.0926    
+100000/100000 [==============================] - 43s - loss: 1.0323    
 Epoch 30/30
-100000/100000 [==============================] - 43s - loss: 1.0678    
+100000/100000 [==============================] - 43s - loss: 1.0066    
 </pre>
 </div>
 </div>
@@ -14439,7 +14473,7 @@ Epoch 30/30
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[54]:</div>
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: choose an input sequence and use the prediction function in the previous Python cell to predict 100 characters following it</span>
@@ -14492,7 +14526,7 @@ input chars =
 is eyes she eclipses and predominates the whole of her sex. it was not that he felt any emotion akin&#34;
 
 predicted chars = 
- the carred of a mance there was st as more than i was the last the suse of the time.&#34; &#34;that the sha&#34;
+s and stard and ever the outs of the lost spoulder be an alle a right and the lood of the lotter and&#34;
 
 -------------------
 
@@ -14500,7 +14534,7 @@ input chars =
  to love for irene adler. all emotions, and that one particularly, were abhorrent to his cold, preci&#34;
 
 predicted chars = 
-sed be a stee and the him and street from the states, and i clought the was were was strough the las&#34;
+ss would reat down our deest cloughted, and there were streeman lake been sime of the lodges and not&#34;
 
 -------------------
 
@@ -14508,7 +14542,7 @@ input chars =
 se but admirably balanced mind. he was, i take it, the most perfect reasoning and observing machine &#34;
 
 predicted chars = 
-of the boones and a waiting adressed my lide in the happe. at hours when he had stroused and at his &#34;
+westared there was suct to have been sucuring of the from with his han, and and a return to the reat&#34;
 
 -------------------
 
@@ -14516,7 +14550,7 @@ input chars =
 that the world has seen, but as a lover he would have placed himself in a false position. he never s&#34;
 
 predicted chars = 
-een himself and he had ener the himes which when she has stericunt as the farrien and sertance in th&#34;
+ee the eace of the striste of the redulition of a will was it sook you are the counte of a priencell&#34;
 
 -------------------
 
@@ -14524,15 +14558,15 @@ input chars =
 poke of the softer passions, save with a gibe and a sneer. they were admirable things for the observ&#34;
 
 predicted chars = 
-ery beash out out the case.&#34; &#34;what dud he poonerour man were a could lood me more be a see that i wi&#34;
+enth duttention of a memin bettreetion which had been suched to the face of the restent, said he, th&#34;
 
 -------------------
 
 input chars = 
-er excellent for drawing the veil from men&#39;s motives and actions. but for the trained reasoner to ad&#34;
+er excellent for drawing the veil from men s motives and actions. but for the trained reasoner to ad&#34;
 
 predicted chars = 
-very deapt. i should be amparienal that the stare, what as thenghend my hand in the horder which he &#34;
+vert curling and that the lood which we had extried upon her bring and we had staring minds which i &#34;
 
 -------------------
 
@@ -14540,7 +14574,7 @@ input chars =
 mit such intrusions into his own delicate and finely adjusted temperament was to introduce a distrac&#34;
 
 predicted chars = 
-t.&#34; &#34;and then he too then my the bast the street bean that in the corner of the thands of the street&#34;
+t the last tomess that there was not into the lottle comportain shat i was to the kingor and that i &#34;
 
 -------------------
 
@@ -14548,7 +14582,7 @@ input chars =
 ting factor which might throw a doubt upon all his mental results. grit in a sensitive instrument, o&#34;
 
 predicted chars = 
-n the greaker of a mance with my from hown in the lade of the counts of our before which seemed to b&#34;
+f it would be be some of then redurtion. it is not spoul then my alloss said holmes, and i have to t&#34;
 
 -------------------
 
@@ -14556,7 +14590,7 @@ input chars =
 r a crack in one of his own high power lenses, would not be more disturbing than a strong emotion in&#34;
 
 predicted chars = 
- the matter. it was a way forning the hald an about the stare with a see that the stame i was a litt&#34;
+ the were been which i was to be waste to the ladd. it is not i can felle me that it is a gleat whic&#34;
 
 -------------------
 
@@ -14564,7 +14598,7 @@ input chars =
  a nature such as his. and yet there was but one woman to him, and that woman was the late irene adl&#34;
 
 predicted chars = 
-e a sheeffice of dearly at the happes and here in the contion of the present which had been so fach &#34;
+ers the itsestice of thes was s car, to dear that the conorer had been so a carrion and a preasing w&#34;
 
 -------------------
 
@@ -14572,7 +14606,7 @@ input chars =
 er, of dubious and questionable memory. i had seen little of holmes lately. my marriage had drifted &#34;
 
 predicted chars = 
-upon his hands, and his leaghed at a waited and a sholl bread which dreaked himself to her for hand &#34;
+down whether s cumpled at the eart the court, of the window chair and a starnce in the deate to shou&#34;
 
 -------------------
 
@@ -14580,7 +14614,7 @@ input chars =
 us away from each other. my own complete happiness, and the home centred interests which rise up aro&#34;
 
 predicted chars = 
-ug the dard me when i had starded the read. &#34;it was a word and go down to have been everyed my live &#34;
+ur a fear of arming the well went a corring men s car, to the window which was the count of the rest&#34;
 
 -------------------
 
@@ -14588,7 +14622,7 @@ input chars =
 und the man who first finds himself master of his own establishment, were sufficient to absorb all m&#34;
 
 predicted chars = 
-e the compon of a mands and the last thick, and then hand a been surnemple and have been and from hi&#34;
+y stain that i can get not i have not toor a think and ever the comestions and lays which had been s&#34;
 
 -------------------
 
@@ -14596,7 +14630,7 @@ input chars =
 y attention, while holmes, who loathed every form of society with his whole bohemian soul, remained &#34;
 
 predicted chars = 
-it and parged himself to your read. &#34;what are you a pee that there is a man which read to do an the &#34;
+for a heme tarked upon the fact to stald in the deate to assice that i should be seep a me the for t&#34;
 
 -------------------
 
@@ -14604,7 +14638,7 @@ input chars =
 in our lodgings in baker street, buried among his old books, and alternating from week to week betwe&#34;
 
 predicted chars = 
-en the last the suct of the street. &#34;now will sear have a compon of a mording a the last the sure to&#34;
+en the comered the string and he realleds that the loder. and net lees was howner, and i had been so&#34;
 
 -------------------
 
@@ -14612,7 +14646,7 @@ input chars =
 en cocaine and ambition, the drowsiness of the drug, and the fierce energy of his own keen nature. h&#34;
 
 predicted chars = 
-e eare to your rether castary from his bross of more than in the had a sudder ard arroush his nonees&#34;
+e resereed the ome of the street. i have not dount in the fire with his was wastered to me. you are &#34;
 
 -------------------
 
@@ -14620,7 +14654,7 @@ input chars =
 e was still, as ever, deeply attracted by the study of crime, and occupied his immense faculties and&#34;
 
 predicted chars = 
- a shouth of a mance in the happen and his little and forte in a face and at the present was still b&#34;
+ we thought ever to stould indest that it was the dire of all this man sanden following and secent i&#34;
 
 -------------------
 
@@ -14628,7 +14662,7 @@ input chars =
  extraordinary powers of observation in following out those clues, and clearing up those mysteries w&#34;
 
 predicted chars = 
-hat had been some from his chair and was all the fired a little and gonder at his changes, and his l&#34;
+hich the was that whee i son t curney the last he respess, to have been the first to the loder. and &#34;
 
 -------------------
 
@@ -14636,7 +14670,7 @@ input chars =
 hich had been abandoned as hopeless by the official police. from time to time i heard some vague acc&#34;
 
 predicted chars = 
-once of the hadder shinges and his langer, and i should have been a sheaded as a weet of the last th&#34;
+onst in a grood, s curs to him, and the ress soctor almester the last he is a ming went and that it &#34;
 
 -------------------
 
@@ -14644,7 +14678,7 @@ input chars =
 ount of his doings: of his summons to odessa in the case of the trepoff murder, of his clearing up o&#34;
 
 predicted chars = 
-f sheard but here it is a strieg and the leaded of a mance when he was and wasted to be a sheated me&#34;
+f the little door and lasse. i was entare thin said that the fair as i say that it is not i am sure &#34;
 
 -------------------
 
@@ -14652,7 +14686,7 @@ input chars =
 f the singular tragedy of the atkinson brothers at trincomalee, and finally of the mission which he &#34;
 
 predicted chars = 
-had something betile the least and a shope of the than sime. he should be a markiag and was a word a&#34;
+had stopled upon the doubt, as the stains which is as i say the deatt to have been succession when i&#34;
 
 -------------------
 
@@ -14660,7 +14694,7 @@ input chars =
 had accomplished so delicately and successfully for the reigning family of holland. beyond these sig&#34;
 
 predicted chars = 
-nest the blood of down the had a sust a side of the him and so the compor and the brode of the windo&#34;
+nt you will not me to the kett the ditter of a morting he dead and streation which i should bus hear&#34;
 
 -------------------
 
@@ -14668,623 +14702,623 @@ input chars =
 ns of his activity, however, which i merely shared with all the readers of the daily press, i knew l&#34;
 
 predicted chars = 
-yarted were been a becker. in the him which was not and sherectoom. he as a street from his brotsen &#34;
+ittle me and the stain that i should be so me to the tround be before the made her said the county s&#34;
 
 -------------------
 
 input chars = 
-ittle of my former friend and companion. one night it was on the twentieth of march, 1888 i was retu&#34;
+ittle of my former friend and companion. one night it was on the twentieth of march,  i was returnin&#34;
 
 predicted chars = 
-re, the read of my and the off the was at the last that i shall not bear the pase of the time. the m&#34;
+g and the bed of the window, and the was a starn lige sint of the wood rassed have and the rempouse &#34;
 
 -------------------
 
 input chars = 
-rning from a journey to a patient for i had now returned to civil practice , when my way led me thro&#34;
+g from a journey to a patient for i had now returned to civil practice , when my way led me through &#34;
 
 predicted chars = 
-ugh the last gees with the last men.&#34; &#34;she said not have been a remark a faitht, and there was no he&#34;
+the starion. i should be a lett enety of a meave and was the dicag hor ereng ald trave that he had s&#34;
 
 -------------------
 
 input chars = 
-ugh baker street. as i passed the well remembered door, which must always be associated in my mind w&#34;
+baker street. as i passed the well remembered door, which must always be associated in my mind with &#34;
 
 predicted chars = 
-hich were understand where we may from his from howed the had a sudder. by the will could been such &#34;
+a sere of his rest be from the restear to you have been suct to her. it is no doubt that there was n&#34;
 
 -------------------
 
 input chars = 
-ith my wooing, and with the dark incidents of the study in scarlet, i was seized with a keen desire &#34;
+my wooing, and with the dark incidents of the study in scarlet, i was seized with a keen desire to s&#34;
 
 predicted chars = 
-to be a ret it the little clay me. i have not bear that a pector of he had a such of a mance in the &#34;
+ere of the was down and a strance to the loor and lake his ears, was the comer bett i matter clair t&#34;
 
 -------------------
 
 input chars = 
-to see holmes again, and to know how he was employing his extraordinary powers. his rooms were brill&#34;
+ee holmes again, and to know how he was employing his extraordinary powers. his rooms were brilliant&#34;
 
 predicted chars = 
-ing to the bell and from the stair which he had lest underss our before in the was work and the leag&#34;
+le street with his hand and all in the nottor and stake of the redalless the last shat of have been &#34;
 
 -------------------
 
 input chars = 
-iantly lit, and, even as i looked up, i saw his tall, spare figure pass twice in a dark silhouette a&#34;
+ly lit, and, even as i looked up, i saw his tall, spare figure pass twice in a dark silhouette again&#34;
 
 predicted chars = 
-nd the contiman and was starking and have been sinder of the lade.&#34; &#34;then she looked drevel mess man&#34;
+s. the staid as is a chooks of his regget and the latter of a morting heard and the reated a thing a&#34;
 
 -------------------
 
 input chars = 
-gainst the blind. he was pacing the room swiftly, eagerly, with his head sunk upon his chest and his&#34;
+st the blind. he was pacing the room swiftly, eagerly, with his head sunk upon his chest and his han&#34;
 
 predicted chars = 
- little and from home from the bake which was the laye and at the time. &#34;i have a reavery a shill ff&#34;
+ds and any the last which i sholl the hand to be the comered it in the were in the corner of the sat&#34;
 
 -------------------
 
 input chars = 
- hands clasped behind him. to me, who knew his every mood and habit, his attitude and manner told th&#34;
+ds clasped behind him. to me, who knew his every mood and habit, his attitude and manner told their &#34;
 
 predicted chars = 
-e least and gonder the dour cander of the course, suluce oress to be and and a should be a me to the&#34;
+of a stary prooss and lay the deatt of the striet, and have been so action which i should be so sell&#34;
 
 -------------------
 
 input chars = 
-eir own story. he was at work again. he had risen out of his drug created dreams and was hot upon th&#34;
+own story. he was at work again. he had risen out of his drug created dreams and was hot upon the sc&#34;
 
 predicted chars = 
-e stair, and the street was steathern the little this her side. &#34;you have had enough as i have herev&#34;
+oution of and that it was not could the lood of the reduble any of the lady of this matter, and i ha&#34;
 
 -------------------
 
 input chars = 
-e scent of some new problem. i rang the bell and was shown up to the chamber which had formerly been&#34;
+ent of some new problem. i rang the bell and was shown up to the chamber which had formerly been in &#34;
 
 predicted chars = 
- himpess in his hands. he has a shilung as a retarted to geer the last the states in one of the was &#34;
+a case of beine a sume of better a wimble and was forting his spoken stand and concement her. there &#34;
 
 -------------------
 
 input chars = 
- in part my own. his manner was not effusive. it seldom was; but he was glad, i think, to see me. wi&#34;
+part my own. his manner was not effusive. it seldom was; but he was glad, i think, to see me. with h&#34;
 
 predicted chars = 
-th sellock as the face. &#34;it is all you a conce to the street.&#34; &#34;herele, that you have have been a re&#34;
+is was wastinged a rest beer s will bride he had stone in the nemp of the soon sgond and the constio&#34;
 
 -------------------
 
 input chars = 
-th hardly a word spoken, but with a kindly eye, he waved me to an armchair, threw across his case of&#34;
+ardly a word spoken, but with a kindly eye, he waved me to an armchair, threw across his case of cig&#34;
 
 predicted chars = 
- the darracter. i was a way doon to the other of the case of the manter, which has been seen the flo&#34;
+ing and say the coroner s and ladghed it on erent of his sert and had standed for arance, said he, t&#34;
 
 -------------------
 
 input chars = 
- cigars, and indicated a spirit case and a gasogene in the corner. then he stood before the fire and&#34;
+ars, and indicated a spirit case and a gasogene in the corner. then he stood before the fire and loo&#34;
 
 predicted chars = 
- parter parters the hadde. &#34;it is not i can that it was at my been in a very pass of a sonders and t&#34;
+k of bring and that it was not courted to think a dear for a pross sime of his allooss clear face, b&#34;
 
 -------------------
 
 input chars = 
- looked me over in his singular introspective fashion. &#34;wedlock suits you,&#34; he remarked. &#34;i think, w&#34;
+ked me over in his singular introspective fashion. wedlock suits you, he remarked. i think, watson, &#34;
 
 predicted chars = 
-athor, that i was the bards as a will not read her to stat his bees and soll the stourd with the lar&#34;
+that i was stary from a down was down the fact of the striges and not inel to deen the poor of the s&#34;
 
 -------------------
 
 input chars = 
-atson, that you have put on seven and a half pounds since i saw you.&#34; &#34;seven!&#34; i answered. &#34;indeed, &#34;
+that you have put on seven and a half pounds since i saw you. seven! i answered. indeed, i should ha&#34;
 
 predicted chars = 
-at in the matter of the morning of the police of the than side of the cortional spould not been such&#34;
+ve not curned the reaters one of the stants of the was restingurabin this thought, said holmes which&#34;
 
 -------------------
 
 input chars = 
-i should have thought a little more. just a trifle more, i fancy, watson. and in practice again, i o&#34;
+ve thought a little more. just a trifle more, i fancy, watson. and in practice again, i observe. you&#34;
 
 predicted chars = 
-nlempe in his hand, and in the process of he had neter strerush to me at the farriar of the corting &#34;
+ are the site of the red of the window, and there we the gasser and this more to be were to be an ap&#34;
 
 -------------------
 
 input chars = 
-bserve. you did not tell me that you intended to go into harness.&#34; &#34;then, how do you know?&#34; &#34;i see i&#34;
+ did not tell me that you intended to go into harness. then, how do you know? i see it, i deduce it.&#34;
 
 predicted chars = 
-t a very and which what a way do you be the expection. the backs of listened and his hands allough t&#34;
+ he was dreaded, and the remped the could exceting his confinured that the lod of the wondessing he &#34;
 
 -------------------
 
 input chars = 
-t, i deduce it. how do i know that you have been getting yourself very wet lately, and that you have&#34;
+ how do i know that you have been getting yourself very wet lately, and that you have a most clumsy &#34;
 
 predicted chars = 
- had the ond on my friend and so partion of the steen, in i have been some of sheard be i seen that &#34;
+by the waster and the count of it not spout and the little muntion of his attoct, had been deary upo&#34;
 
 -------------------
 
 input chars = 
- a most clumsy and careless servant girl?&#34; &#34;my dear holmes,&#34; said i, &#34;this is too much. you would ce&#34;
+and careless servant girl? my dear holmes, said i, this is too much. you would certainly have been b&#34;
 
 predicted chars = 
-n of the morning.&#34; &#34;it is no our could not be she comping in the offer and poust of my atting and a &#34;
+etten us to the couse of the stringe of the redulition of a will was itstentide it to be marked to a&#34;
 
 -------------------
 
 input chars = 
-rtainly have been burned, had you lived a few centuries ago. it is true that i had a country walk on&#34;
+urned, had you lived a few centuries ago. it is true that i had a country walk on thursday and came &#34;
 
 predicted chars = 
- the street.&#34; &#34;herele, tho gut he had not to the last and and a feater, of the manners of the bark w&#34;
+to me any of the street. i have not a think with the window which is alloys scauld the last he reade&#34;
 
 -------------------
 
 input chars = 
- thursday and came home in a dreadful mess, but as i have changed my clothes i can&#39;t imagine how you&#34;
+home in a dreadful mess, but as i have changed my clothes i can t imagine how you deduce it. as to m&#34;
 
 predicted chars = 
- the last and a which was a very bear that there was a werd a serieg a much a pee to the frest of th&#34;
+ake my may save a meation was a starnce for me room and the rase to serong to be an ammertion which &#34;
 
 -------------------
 
 input chars = 
- deduce it. as to mary jane, she is incorrigible, and my wife has given her notice, but there, again&#34;
+ary jane, she is incorrigible, and my wife has given her notice, but there, again, i fail to see how&#34;
 
 predicted chars = 
-, there was the geed of duchinge of the lady of mr. honder all a imple in a very might be wainds and&#34;
+ is in the offer on thing and case, said he, then, was a little mest pare and trove inte the tome of&#34;
 
 -------------------
 
 input chars = 
-, i fail to see how you work it out.&#34; he chuckled to himself and rubbed his long, nervous hands toge&#34;
+ you work it out. he chuckled to himself and rubbed his long, nervous hands together. it is simplici&#34;
 
 predicted chars = 
-ttor and the leaded of by sheppord of he had a shill and a shappin with the torser a clue trough of &#34;
+te of the fire was should be an appearanted and arredy, and i went down to an his single rought. i h&#34;
 
 -------------------
 
 input chars = 
-ther. &#34;it is simplicity itself,&#34; said he; &#34;my eyes tell me that on the inside of your left shoe, jus&#34;
+ty itself, said he; my eyes tell me that on the inside of your left shoe, just where the firelight s&#34;
 
 predicted chars = 
-t be no one of the last that i had there in the our states, and the could not be so ertance in the c&#34;
+tredle, but i have to the count of look in the pression of the will was so thark it is all ysured th&#34;
 
 -------------------
 
 input chars = 
-t where the firelight strikes it, the leather is scored by six almost parallel cuts. obviously they &#34;
+trikes it, the leather is scored by six almost parallel cuts. obviously they have been caused by som&#34;
 
 predicted chars = 
-heard of mark whe has seen to be a pricement beasinesting the read. &#34;it was and was at the tame. &#34;it&#34;
+e omen to the could not her hands and the reced upon his face to be any over his door and alled and &#34;
 
 -------------------
 
 input chars = 
-have been caused by someone who has very carelessly scraped round the edges of the sole in order to &#34;
+eone who has very carelessly scraped round the edges of the sole in order to remove crusted mud from&#34;
 
 predicted chars = 
-at the care, and the street was stering at the time. the last herred which han leaded from his hand,&#34;
+ the recevere that it was a sude of the wore. i have not dount to de. i was hollere it was the fitte&#34;
 
 -------------------
 
 input chars = 
-remove crusted mud from it. hence, you see, my double deduction that you had been out in vile weathe&#34;
+ it. hence, you see, my double deduction that you had been out in vile weather, and that you had a p&#34;
 
 predicted chars = 
-r the last there and seated and a shope his bend at my strange and her leased from here it interesti&#34;
+ersoung in the and of the fired with his hands and and all this mat sind. it is not you was to to th&#34;
 
 -------------------
 
 input chars = 
-r, and that you had a particularly malignant boot slitting specimen of the london slavey. as to your&#34;
+articularly malignant boot slitting specimen of the london slavey. as to your practice, if a gentlem&#34;
 
 predicted chars = 
- chall you coull cane that i was the back to me, and what the daye as a street minite and the last t&#34;
+an wille strick of his forting his bank which had been sut to him, and the ress so street of the win&#34;
 
 -------------------
 
 input chars = 
- practice, if a gentleman walks into my rooms smelling of iodoform, with a black mark of nitrate of &#34;
+an walks into my rooms smelling of iodoform, with a black mark of nitrate of silver upon his right f&#34;
 
 predicted chars = 
-the carmess that i was then such might be dook hilde. &#34;it was a fort of the wask to be a morning and&#34;
+ant frimnce in the morning in the deart of the worked indout death, and i set it he spoulders of the&#34;
 
 -------------------
 
 input chars = 
-silver upon his right forefinger, and a bulge on the right side of his top hat to show where he has &#34;
+orefinger, and a bulge on the right side of his top hat to show where he has secreted his stethoscop&#34;
 
 predicted chars = 
-seen our him at what i was ferning at the face of the was still when i was meffered the fact that th&#34;
+e and arrigating friend of a mert he dause from a mention of dead from my recever. whole i shall be &#34;
 
 -------------------
 
 input chars = 
-secreted his stethoscope, i must be dull, indeed, if i do not pronounce him to be an active member o&#34;
+e, i must be dull, indeed, if i do not pronounce him to be an active member of the medical professio&#34;
 
 predicted chars = 
-f the lade the stanes and the last there as a will be a shippess of a man an the care, and the steen&#34;
+n which had been cuble the reese to be were to the cound to should be an and a fearn the morning in &#34;
 
 -------------------
 
 input chars = 
-f the medical profession.&#34; i could not help laughing at the ease with which he explained his process&#34;
+n. i could not help laughing at the ease with which he explained his process of deduction. when i he&#34;
 
 predicted chars = 
- of he should be alleaty my seder to me at the farrien and a shait, and the hears which have been so&#34;
+ared as the fact to the count of the streattes, that it is not i could the lister in the chain whe h&#34;
 
 -------------------
 
 input chars = 
- of deduction. &#34;when i hear you give your reasons,&#34; i remarked, &#34;the thing always appears to me to b&#34;
+ar you give your reasons, i remarked, the thing always appears to me to be so ridiculously simple th&#34;
 
 predicted chars = 
-e a shean which see dithen by the fertion of the wild got. it was a way forning the last them were t&#34;
+at it is a little man have and a mection fare to have and the sime of the way how i can farre that i&#34;
 
 -------------------
 
 input chars = 
-e so ridiculously simple that i could easily do it myself, though at each successive instance of you&#34;
+at i could easily do it myself, though at each successive instance of your reasoning i am baffled un&#34;
 
 predicted chars = 
-r many heard it out of the matter. it was the barter of the time. &#34;you have he are as a weman to you&#34;
+te the matter, and i had sell the tome of the striee which was there comerters and the rest of sied &#34;
 
 -------------------
 
 input chars = 
-r reasoning i am baffled until you explain your process. and yet i believe that my eyes are as good &#34;
+til you explain your process. and yet i believe that my eyes are as good as yours. quite so, he answ&#34;
 
 predicted chars = 
-and which what a way from holmes. he had readed to the befte of the stater. it was a long dorn of th&#34;
+ered to the pleass of the street, and he spens to the was dose could and the was do not to be any li&#34;
 
 -------------------
 
 input chars = 
-as yours.&#34; &#34;quite so,&#34; he answered, lighting a cigarette, and throwing himself down into an armchair&#34;
+ered, lighting a cigarette, and throwing himself down into an armchair. you see, but you do not obse&#34;
 
 predicted chars = 
-, which was not and the last there as a man, when he had seen our holmes and his ressered to be a sh&#34;
+rve the trould benors a really blow which which case be no meded howe with the chanch, and the was t&#34;
 
 -------------------
 
 input chars = 
-. &#34;you see, but you do not observe. the distinction is clear. for example, you have frequently seen &#34;
+rve. the distinction is clear. for example, you have frequently seen the steps which lead up from th&#34;
 
 predicted chars = 
-himself a chulrer of a mance to the off ther with his fateer, and the half and a sholler fart the st&#34;
+e cliend of the restantion, and the and offication of a man who is dount to the fliencess of the was&#34;
 
 -------------------
 
 input chars = 
-the steps which lead up from the hall to this room.&#34; &#34;frequently.&#34; &#34;how often?&#34; &#34;well, some hundreds&#34;
+e hall to this room. frequently. how often? well, some hundreds of times. then how many are there? h&#34;
 
 predicted chars = 
- the hallot have been deared to be and the precess of a man a rearly in the diret of the corner and &#34;
+e rese the one of the striget with the connersion beto excaily and all that the streess and here as &#34;
 
 -------------------
 
 input chars = 
- of times.&#34; &#34;then how many are there?&#34; &#34;how many? i don&#39;t know.&#34; &#34;quite so! you have not observed. a&#34;
+ow many? i don t know. quite so! you have not observed. and yet you have seen. that is just my point&#34;
 
 predicted chars = 
-nd the wird the streed and my at was a will not pasticion the happen and rether and the leaghe, whic&#34;
+ of a very fife menters and even my office and she lake of the recement of the will was instont and &#34;
 
 -------------------
 
 input chars = 
-nd yet you have seen. that is just my point. now, i know that there are seventeen steps, because i h&#34;
+. now, i know that there are seventeen steps, because i have both seen and observed. by the way, sin&#34;
 
 predicted chars = 
-ad to the leaser of the was started from an indoner. and i was at the tame retures of the comple in &#34;
+g in the went of the wonder and have no sote of his father, which was a should be an and a string of&#34;
 
 -------------------
 
 input chars = 
-ave both seen and observed. by the way, since you are interested in these little problems, and since&#34;
+ce you are interested in these little problems, and since you are good enough to chronicle one or tw&#34;
 
 predicted chars = 
- as a prister the last there as a must can be a seen to at the cabeer of the the pase of the packers&#34;
+o seal said who have been sutt to himser and to be the sight of his fartien, and the eart the tome o&#34;
 
 -------------------
 
 input chars = 
- you are good enough to chronicle one or two of my trifling experiences, you may be interested in th&#34;
+o of my trifling experiences, you may be interested in this. he threw over a sheet of thick, pink ti&#34;
 
 predicted chars = 
-e leaghed and his little and gonding at the trie man with a reaghed in the conting which had been so&#34;
+nting of the worder before he was ston a memin the morning at the street. i have not dount of the wa&#34;
 
 -------------------
 
 input chars = 
-is.&#34; he threw over a sheet of thick, pink tinted note paper which had been lying open upon the table&#34;
+nted note paper which had been lying open upon the table. it came by the last post, said he. read it&#34;
 
 predicted chars = 
-. it was the lade of the time. the matters of the word, and the coller a contlens of the side and so&#34;
+ in the matter of a montion of a light i seven mect. there was not comple of the rece to stould be a&#34;
 
 -------------------
 
 input chars = 
-. &#34;it came by the last post,&#34; said he. &#34;read it aloud.&#34; the note was undated, and without either sig&#34;
+ aloud. the note was undated, and without either signature or address. there will call upon you to n&#34;
 
 predicted chars = 
-ht, and i was a way forning the last them were to me. in the compor of the course, suluce oress that&#34;
+ime in the dection fare fine under the emplice in the deart of the was were to be some ome of the st&#34;
 
 -------------------
 
 input chars = 
-nature or address. &#34;there will call upon you to night, at a quarter to eight o&#39;clock,&#34; it said, &#34;a g&#34;
+ight, at a quarter to eight o clock, it said, a gentleman who desires to consult you upon a matter o&#34;
 
 predicted chars = 
-e. he has readed to the befter. &#34;the east to buth the street. &#34;i will not could not into the stair i&#34;
+f a mettere of all that i shall be no gooded to having that there was not into the face of the strin&#34;
 
 -------------------
 
 input chars = 
-entleman who desires to consult you upon a matter of the very deepest moment. your recent services t&#34;
+f the very deepest moment. your recent services to one of the royal houses of europe have shown that&#34;
 
 predicted chars = 
-o me. i had every beasinest, but he was not to sheard the befter which he had seen harred in the ead&#34;
+ it was a such of you such to dear to have me a practed with his prose soom the shouther, and the re&#34;
 
 -------------------
 
 input chars = 
-o one of the royal houses of europe have shown that you are one who may safely be trusted with matte&#34;
+ you are one who may safely be trusted with matters which are of an importance which can hardly be e&#34;
 
 predicted chars = 
-r for he had enelled. the last really as masself a chill ret and the street. &#34;i will not could not b&#34;
+xpppenion, and i sell me and then we antered of your with a gettern that i should be so me to the tr&#34;
 
 -------------------
 
 input chars = 
-rs which are of an importance which can hardly be exaggerated. this account of you we have from all &#34;
+xaggerated. this account of you we have from all quarters received. be in your chamber then at that &#34;
 
 predicted chars = 
-the side of the the papers which had been so fach my sutter. the pooning of a seration and satures i&#34;
+is as it was the dire of the weye ingured an think through she some of the face of the stringe of th&#34;
 
 -------------------
 
 input chars = 
-quarters received. be in your chamber then at that hour, and do not take it amiss if your visitor we&#34;
+hour, and do not take it amiss if your visitor wear a mask. this is indeed a mystery, i remarked. wh&#34;
 
 predicted chars = 
-at the garden as to be the would be an the tame of the liget and the last the sume to be a shappine &#34;
+at the case is not instanious then them? i know that you have been comest of the write that i should&#34;
 
 -------------------
 
 input chars = 
-ar a mask.&#34; &#34;this is indeed a mystery,&#34; i remarked. &#34;what do you imagine that it means?&#34; &#34;i have no &#34;
+at do you imagine that it means? i have no data yet. it is a capital mistake to theorize before one &#34;
 
 predicted chars = 
-dount and somether that it may have been seen himself to had see formed, and the stares of have been&#34;
+that she was donn to a could expets of cour inst and stain that i should be seep and and the rest of&#34;
 
 -------------------
 
 input chars = 
-data yet. it is a capital mistake to theorize before one has data. insensibly one begins to twist fa&#34;
+has data. insensibly one begins to twist facts to suit theories, instead of theories to suit facts. &#34;
 
 predicted chars = 
-ce, and then had been surned to be and the precess of he had neter strert be a sheppective backers w&#34;
+i was that the street of the window, and there we the gasser and this more to be were to be an appoo&#34;
 
 -------------------
 
 input chars = 
-cts to suit theories, instead of theories to suit facts. but the note itself. what do you deduce fro&#34;
+but the note itself. what do you deduce from it? i carefully examined the writing, and the paper upo&#34;
 
 predicted chars = 
-m and which is a viliter that it is to be compand in the had and which what a way from hime.&#34; &#34;what &#34;
+n the street, and he ret rett to her tonnting his hand and selles i was a cable to be out in the gre&#34;
 
 -------------------
 
 input chars = 
-m it?&#34; i carefully examined the writing, and the paper upon which it was written. &#34;the man who wrote&#34;
+n which it was written. the man who wrote it was presumably well to do, i remarked, endeavouring to &#34;
 
 predicted chars = 
- had been say a my at have been so there as at the troum the stoung and a should on matter of the ha&#34;
+to so was into the cound s mect of thes with his han, and readony to your was a little mest companio&#34;
 
 -------------------
 
 input chars = 
- it was presumably well to do,&#34; i remarked, endeavouring to imitate my companion&#39;s processes. &#34;such &#34;
+imitate my companion s processes. such paper could not be bought under half a crown a packet. it is &#34;
 
 predicted chars = 
-a rever a clee have heard of here it is a very pittor ghe hours, in the compon of the word, and the &#34;
+a little man have and a mection fare to have and the sime of the way how i can farre that i was stri&#34;
 
 -------------------
 
 input chars = 
-paper could not be bought under half a crown a packet. it is peculiarly strong and stiff.&#34; &#34;peculiar&#34;
+peculiarly strong and stiff. peculiar that is the very word, said holmes. it is not an english paper&#34;
 
 predicted chars = 
- it was a fent and the other side of the parkers, and i have not intenting it would not herr our of &#34;
+ there was a sonce i amperted to me and that i should be one out to the count of the streattes, that&#34;
 
 -------------------
 
 input chars = 
- that is the very word,&#34; said holmes. &#34;it is not an english paper at all. hold it up to the light.&#34; &#34;
+ at all. hold it up to the light. i did so, and saw a large e with a small g, a p, and a large g wit&#34;
 
 predicted chars = 
-&#34;i am of dounty as a bound on my being soon an which was not to be a pricement by a stranged of a li&#34;
+h the count of my right. no, there is a little mr. holmes sade, and a well him eath was the seep one&#34;
 
 -------------------
 
 input chars = 
-i did so, and saw a large &#34;e&#34; with a small &#34;g,&#34; a &#34;p,&#34; and a large &#34;g&#34; with a small &#34;t&#34; woven into t&#34;
+h a small t woven into the texture of the paper. what do you make of that? asked holmes. the name of&#34;
 
 predicted chars = 
-he passion of the mantere of the pasers of a man about the last a seriet, but i have been seen to be&#34;
+ that there was not into the flich of his spoulders. he has not into the cliend of the restantion, a&#34;
 
 -------------------
 
 input chars = 
-he texture of the paper. &#34;what do you make of that?&#34; asked holmes. &#34;the name of the maker, no doubt;&#34;
+ the maker, no doubt; or his monogram, rather. not at all. the g with the small t stands for gesells&#34;
 
 predicted chars = 
- but ho was an a shill of bremen the case of a stare and down in the happen which had been so fecrie&#34;
+ed to heve ment. there are no doubt that there was not into the fact of the window, and there was no&#34;
 
 -------------------
 
 input chars = 
- or his monogram, rather.&#34; &#34;not at all. the &#39;g&#39; with the small &#39;t&#39; stands for &#39;gesellschaft,&#39; which &#34;
+chaft, which is the german for company. it is a customary contraction like our co. p, of course, sta&#34;
 
 predicted chars = 
-is the beffect of the manter, for i as striend before the last the sust of the light. he was as a sh&#34;
+in i should be seep and anted the couse i sholl can beto ences. you will exclied the emely reearly a&#34;
 
 -------------------
 
 input chars = 
-is the german for &#39;company.&#39; it is a customary contraction like our &#39;co.&#39; &#39;p,&#39; of course, stands for&#34;
+nds for papier. now for the eg. let us glance at our continental gazetteer. he took down a heavy bro&#34;
 
 predicted chars = 
- the solice mareary of the caberter of the matter. it was a way forning the last there and that he h&#34;
+wn to have been there in the notter of down the was to be on a muttle to any over his morning and al&#34;
 
 -------------------
 
 input chars = 
- &#39;papier.&#39; now for the &#39;eg.&#39; let us glance at our continental gazetteer.&#34; he took down a heavy brown&#34;
+wn volume from his shelves. eglow, eglonitz here we are, egria. it is in a german speaking country i&#34;
 
 predicted chars = 
- every mere the matter. &#34;the chien on the farts and a shough of a mance in the matter. it was a way &#34;
+nto the orficas and the stail aroun of a mery in a starl prose to the shoulders. but he had she seep&#34;
 
 -------------------
 
 input chars = 
- volume from his shelves. &#34;eglow, eglonitz here we are, egria. it is in a german speaking country in&#34;
+n bohemia, not far from carlsbad. remarkable as being the scene of the death of wallenstein, and for&#34;
 
 predicted chars = 
- the matter. &#34;there is a very past here it interesting to me at the care of the there with his fatee&#34;
+ the ong this standing of the will was it. and his beet recungly did. it was not our one of the stra&#34;
 
 -------------------
 
 input chars = 
- bohemia, not far from carlsbad. &#39;remarkable as being the scene of the death of wallenstein, and for&#34;
+ its numerous glass factories and paper mills. ha, ha, my boy, what do you make of that? his eyes sp&#34;
 
 predicted chars = 
- the seet man hand been seen him. i had hards watell the stater, but the stare with a shall red been&#34;
+appess. i have not myster into the cristen s. the rest of to be sump and with the tope of the strang&#34;
 
 -------------------
 
 input chars = 
- its numerous glass factories and paper mills.&#39; ha, ha, my boy, what do you make of that?&#34; his eyes &#34;
+arkled, and he sent up a great blue triumphant cloud from his cigarette. the paper was made in bohem&#34;
 
 predicted chars = 
-with his hassend as surdery by a sten and reasing the last there as a man was a man be the been to d&#34;
+an whice in the crince for the once of the strige and all that i may geven to me the said should ind&#34;
 
 -------------------
 
 input chars = 
-sparkled, and he sent up a great blue triumphant cloud from his cigarette. &#34;the paper was made in bo&#34;
+ia, i said. precisely. and the man who wrote the note is a german. do you note the peculiar construc&#34;
 
 predicted chars = 
-ind be are the last of and a should been she were and the leager of the the peesent all a stenf a sh&#34;
+t whe was downowing the manners, and i heve that it is a little man willor ween the lang of the stri&#34;
 
 -------------------
 
 input chars = 
-hemia,&#34; i said. &#34;precisely. and the man who wrote the note is a german. do you note the peculiar con&#34;
+tion of the sentence this account of you we have from all quarters received. a frenchman or russian &#34;
 
 predicted chars = 
-ing when he had seen our horread. he has readed dirked to be and all at mys abour of licht and suchi&#34;
+case so that it is the tree of cour inst a conding of the restarting heard and the crien the court, &#34;
 
 -------------------
 
 input chars = 
-struction of the sentence &#39;this account of you we have from all quarters received.&#39; a frenchman or r&#34;
+could not have written that. it is the german who is so uncourteous to his verbs. it only remains, t&#34;
 
 predicted chars = 
-umiled and the had said that the stareer whom st was leared the beffer he had a shill and a waitly a&#34;
+he sime of the strees. i have not dount ith sat deancced and strention list and offerice that it was&#34;
 
 -------------------
 
 input chars = 
-ussian could not have written that. it is the german who is so uncourteous to his verbs. it only rem&#34;
+herefore, to discover what is wanted by this german who writes upon bohemian paper and prefers weari&#34;
 
 predicted chars = 
-ain to buth a couted appaiced the last that i had there is no dears and with a rew appoat and was st&#34;
+ng the manness of the was rest bound the have a dear for so trom the rood whoch i shall be the reall&#34;
 
 -------------------
 
 input chars = 
-ains, therefore, to discover what is wanted by this german who writes upon bohemian paper and prefer&#34;
+ng a mask to showing his face. and here he comes, if i am not mistaken, to resolve all our doubts. a&#34;
 
 predicted chars = 
-s of the state, and i should be amparience that the stare with a shall be the sed at the hore, and h&#34;
+s the lade of this matter, and i set it he speen was in the manterest carring and the stap signt, wh&#34;
 
 -------------------
 
 input chars = 
-s wearing a mask to showing his face. and here he comes, if i am not mistaken, to resolve all our do&#34;
+s he spoke there was the sharp sound of horses hoofs and grating wheels against the curb, followed b&#34;
 
 predicted chars = 
-ur horres, for a little all way do in the horry, she has a rewarned as the grest me. into the street&#34;
+y the chance of the was s as there was the fire to the was a stall blead the little man had the list&#34;
 
 -------------------
 
 input chars = 
-ubts.&#34; as he spoke there was the sharp sound of horses&#39; hoofs and grating wheels against the curb, f&#34;
+y a sharp pull at the bell. holmes whistled. a pair, by the sound, said he. yes, he continued, glanc&#34;
 
 predicted chars = 
-re the street. &#34;i have a ready as a which do spered by a strange and the sto down which he had seen &#34;
+ed as the farther s coult, the coner of the station which he had can been say then i we the deart th&#34;
 
 -------------------
 
 input chars = 
-ollowed by a sharp pull at the bell. holmes whistled. &#34;a pair, by the sound,&#34; said he. &#34;yes,&#34; he con&#34;
+ing out of the window. a nice little brougham and a pair of beauties. a hundred and fifty guineas ap&#34;
 
 predicted chars = 
-tered the had some gloond upon his hands. he has ened hadded in the edventencession and his hands. &#34;&#34;
+pears, and i have not doubt they not of the count someng of so mark that he had the reat lants net o&#34;
 
 -------------------
 
 input chars = 
-tinued, glancing out of the window. &#34;a nice little brougham and a pair of beauties. a hundred and fi&#34;
+iece. there s money in this case, watson, if there is nothing else. i think that i had better go, ho&#34;
 
 predicted chars = 
-ve a gond when we have been some of shereck that he had been such a strate, and it was a word and ev&#34;
+lmes shat i was a carries of you are might never he was stong that i shall be no goode of the street&#34;
 
 -------------------
 
 input chars = 
-fty guineas apiece. there&#39;s money in this case, watson, if there is nothing else.&#34; &#34;i think that i h&#34;
+lmes. not a bit, doctor. stay where you are. i am lost without my boswell. and this promises to be i&#34;
 
 predicted chars = 
-ave had a shill and which i save a face of more there was a strueg of much martater is have and a sh&#34;
+nterest do mige that i was stary ly an and as the door of his stould. hull has been in by thee is no&#34;
 
 -------------------
 
 input chars = 
-ad better go, holmes.&#34; &#34;not a bit, doctor. stay where you are. i am lost without my boswell. and thi&#34;
+nteresting. it would be a pity to miss it. but your client  never mind him. i may want your help, an&#34;
 
 predicted chars = 
-s i had starded the had a sud from the stare and made an the farrers and a shouth of a strand in the&#34;
+d i have been in the condroous and all the dissent scould be an accemante of the and of the was down&#34;
 
 -------------------
 
 input chars = 
-s promises to be interesting. it would be a pity to miss it.&#34; &#34;but your client &#34; &#34;never mind him. i &#34;
+d so may he. here he comes. sit down in that armchair, doctor, and give us your best attention. a sl&#34;
 
 predicted chars = 
-fat at what as the man which dead from the sake the sitters of the blat which had been some dide of &#34;
+ong rash and the stared of a componinanant, and it west you were to me any there is to the fact the &#34;
 
 -------------------
 
 input chars = 
-may want your help, and so may he. here he comes. sit down in that armchair, doctor, and give us you&#34;
+ow and heavy step, which had been heard upon the stairs and in the passage, paused immediately outsi&#34;
 
 predicted chars = 
-r and the off the was a smell brable, and it was the pape, and the steen, what as there and that the&#34;
+ng the were some of the street. and how had restened. i was t like the little monnor. it is a little&#34;
 
 </pre>
 </div>
